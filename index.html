@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="SmartWatt is an energy intelligence dashboard for electricity consumption analysis, cost estimation, and appliance-level planning.">
+  <title>SmartWatt | Energy Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="SmartWatt home">
+        <span class="brand-mark">ϟ</span>
+        <span><strong>smartwatt</strong><small>ENERGY INTELLIGENCE</small></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+        <a class="nav-item" href="#analysis"><span>⌁</span> Energy analysis</a>
+        <a class="nav-item" href="#appliances"><span>▤</span> Appliance planner</a>
+        <a class="nav-item" href="#methodology"><span>◈</span> Methodology</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="status-card"><span class="status-dot"></span><div><b>Prototype mode</b><small>Using local input data</small></div></div>
+        <p>Designed for transparent energy estimates.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <b>Overview</b></div>
+        <div class="topbar-right"><span class="live-indicator"></span><span>Local analysis</span><div class="avatar" aria-label="SmartWatt user">SW</div></div>
+      </header>
+
+      <section class="page-heading" id="overview">
+        <div>
+          <p class="eyebrow">ENERGY PERFORMANCE CENTER</p>
+          <h1>Understand your energy.<br><span>Change what comes next.</span></h1>
+          <p class="heading-copy">Turn appliance-level inputs into clear consumption estimates and practical cost insights.</p>
+        </div>
+        <div class="date-chip"><span class="calendar-icon">▦</span><span><small>ANALYSIS PERIOD</small><b id="periodLabel">Monthly estimate</b></span></div>
+      </section>
+
+      <section class="notice" role="note">
+        <span class="notice-icon">i</span>
+        <p><b>Prototype data:</b> results are calculated from the values you enter. This dashboard is not connected to a live smart meter or IoT sensor.</p>
+      </section>
+
+      <section class="metrics-grid" aria-label="Energy summary metrics">
+        <article class="metric-card primary-metric">
+          <div class="metric-top"><span>Estimated monthly energy</span><span class="metric-icon">ϟ</span></div>
+          <div class="metric-value"><span id="totalEnergy">—</span><small>kWh</small></div>
+          <div class="metric-foot"><span class="mini-pill">CALCULATED</span><span>From appliance inputs</span></div>
+          <div class="metric-glow"></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Estimated monthly cost</span><span class="metric-icon">₹</span></div>
+          <div class="metric-value"><span id="totalCost">—</span></div>
+          <div class="metric-foot"><span class="foot-dot"></span><span>Using your tariff assumption</span></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Daily average</span><span class="metric-icon">◷</span></div>
+          <div class="metric-value"><span id="dailyEnergy">—</span><small>kWh/day</small></div>
+          <div class="metric-foot"><span class="foot-dot blue"></span><span>Monthly estimate ÷ days</span></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-top"><span>Active appliances</span><span class="metric-icon">▤</span></div>
+          <div class="metric-value"><span id="applianceCount">—</span></div>
+          <div class="metric-foot"><span class="foot-dot purple"></span><span>Included in calculation</span></div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="analysis">
+        <article class="panel consumption-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">CONSUMPTION PROFILE</p><h2>Monthly energy breakdown</h2><p class="subheading">Estimated energy by appliance · kWh</p></div>
+            <span class="panel-tag">LIVE CALCULATION</span>
+          </div>
+          <div id="chart" class="chart-area" role="img" aria-label="Bar chart of estimated energy consumption by appliance"></div>
+          <div class="chart-footer"><span><i class="legend-dot"></i> Estimated monthly consumption</span><b id="chartTotal">—</b></div>
+        </article>
+
+        <article class="panel tariff-panel">
+          <div class="panel-heading"><div><p class="eyebrow">COST MODEL</p><h2>Tariff assumptions</h2><p class="subheading">Adjust values to match your use case.</p></div></div>
+          <label class="field-label" for="tariff">Electricity tariff <span>(₹ / kWh)</span></label>
+          <div class="input-with-unit"><span>₹</span><input type="number" id="tariff" min="0" max="10000" step="0.01" value="8.50" inputmode="decimal"></div>
+          <label class="field-label" for="days">Days in analysis period</label>
+          <div class="input-with-unit"><span>◷</span><input type="number" id="days" min="1" max="366" step="1" value="30" inputmode="numeric"></div>
+          <div class="cost-summary">
+            <div><span>Estimated period cost</span><b id="periodCost">—</b></div>
+            <div><span>Cost per day</span><b id="dailyCost">—</b></div>
+          </div>
+          <p class="microcopy">Simplified flat-rate model. Actual utility bills may include slabs, fixed charges, taxes, and other adjustments.</p>
+        </article>
+      </section>
+
+      <section class="panel appliance-panel" id="appliances">
+        <div class="panel-heading appliance-heading">
+          <div><p class="eyebrow">LOAD ESTIMATION</p><h2>Appliance planner</h2><p class="subheading">Edit power and usage to explore your energy profile.</p></div>
+          <button class="button button-secondary" id="resetButton">Reset example</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Appliance</th><th>Rated power (W)</th><th>Hours / day</th><th>Quantity</th><th>Energy / month</th><th></th></tr></thead>
+            <tbody id="applianceRows"></tbody>
+          </table>
+        </div>
+        <form id="addForm" class="add-appliance-form">
+          <div class="form-field"><label for="newName">Appliance name</label><input id="newName" maxlength="40" placeholder="e.g. Water pump" required></div>
+          <div class="form-field"><label for="newPower">Power (W)</label><input id="newPower" type="number" min="0.1" max="100000" step="0.1" placeholder="750" required></div>
+          <div class="form-field"><label for="newHours">Hours / day</label><input id="newHours" type="number" min="0" max="24" step="0.1" placeholder="1.5" required></div>
+          <div class="form-field quantity-field"><label for="newQuantity">Quantity</label><input id="newQuantity" type="number" min="1" max="1000" step="1" value="1" required></div>
+          <button class="button button-primary" type="submit">+ Add appliance</button>
+        </form>
+        <p id="formMessage" class="form-message" aria-live="polite"></p>
+      </section>
+
+      <section class="bottom-grid" id="methodology">
+        <article class="panel insight-panel">
+          <div class="insight-symbol">✳</div><div><p class="eyebrow">ENERGY INSIGHT</p><h2 id="insightTitle">Your biggest load, at a glance</h2><p id="insightText">Add appliance details to identify which load contributes most to the estimate.</p></div>
+        </article>
+        <article class="panel methodology-panel">
+          <p class="eyebrow">ENGINEERING METHODOLOGY</p><h2>Simple, auditable calculations.</h2>
+          <div class="formula">E = <span>P × t × n × d</span> / 1000</div>
+          <p>Where <b>E</b> is energy (kWh), <b>P</b> is rated power (W), <b>t</b> is hours per day, <b>n</b> is quantity, and <b>d</b> is days.</p>
+          <div class="formula secondary-formula">Estimated cost = <span>E × tariff</span></div>
+          <p class="microcopy">This is an estimate based on rated power and assumed operating time. Real consumption varies with duty cycle, efficiency, and operating conditions.</p>
+        </article>
+      </section>
+      <footer class="footer"><span>SMARTWATT <b>·</b> ENERGY INTELLIGENCE</span><span>Educational prototype · Not a utility billing instrument</span></footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "smartwatt-energy-intelligence",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A transparent appliance-level electricity consumption and cost estimation dashboard.",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
